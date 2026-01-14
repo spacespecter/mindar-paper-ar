@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Paper AR Video</title>
+
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    body { margin: 0; overflow: hidden; }
+
+    #start {
+      position: fixed;
+      inset: 0;
+      background: black;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="start">Tap once to start AR</div>
+
+<a-scene
+  mindar-image="imageTargetSrc: targets.mind;"
+  vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: false"
+  embedded
+>
+  <a-assets>
+    <video
+      id="vid"
+      src="video.mp4"
+      preload="auto"
+      loop
+      playsinline
+      webkit-playsinline
+    ></video>
+  </a-assets>
+
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+  <a-entity mindar-image-target="targetIndex: 0">
+    <a-video src="#vid" width="1" height="0.56"></a-video>
+  </a-entity>
+</a-scene>
+
+<script>
+  const video = document.querySelector("#vid");
+  const start = document.querySelector("#start");
+  const scene = document.querySelector("a-scene");
+
+  start.addEventListener("click", () => {
+    start.style.display = "none";
+    video.play();
+  });
+
+  scene.addEventListener("targetFound", () => {
+    video.play();
+  });
+
+  scene.addEventListener("targetLost", () => {
+    video.pause();
+  });
+</script>
+
+</body>
+</html>
