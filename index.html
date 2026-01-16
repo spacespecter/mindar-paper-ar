@@ -9,13 +9,14 @@
 
   <style>
   html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: black;
-  }
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
 
   a-scene {
     position: fixed !important;
@@ -51,12 +52,13 @@
 <div id="start">Tap once to start AR</div>
 
 <a-scene
-  renderer="precision: high; antialias: true;"
+  renderer="alpha: true; antialias: true;"
   mindar-image="imageTargetSrc: targets.mind;"
   vr-mode-ui="enabled: false"
   device-orientation-permission-ui="enabled: false"
   embedded
 >
+
 
   <a-assets>
     <video
@@ -97,4 +99,5 @@
 
 </body>
 </html>
+
 
